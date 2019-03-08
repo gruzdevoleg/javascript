@@ -15,7 +15,7 @@ export class LoginComponent {
         return `
         <div class="auth-wrap d-flex mt-5">
             <div class="auth-form col col-6 mx-auto my-auto">
-                <h3>Login to Social.</h3>
+                <h3>Login to Social App hosted on Heroku.</h3>
                 <p class="text-secondary">Enter your e-mail address & password to login to your Social account.</p>
                 <form name="loginForm" novalidate>
                     <div class="form-group">
