@@ -76,8 +76,7 @@ const router = async () => {
         const guardState = guards.every(function(item) {
             return item.canActivate();
         });
-       console.log(guardState);
-        if (!guardState) return;
+       if (!guardState) return;
     }
 
     if (header) {

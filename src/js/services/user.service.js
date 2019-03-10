@@ -22,7 +22,7 @@ export class UserService {
         return new Promise((resolve, reject) => {
             http.get(`${ENV.apiUrl}/public/users/my-images/${userId}`)
                 .then((response) => {
-                    console.log(response);
+                    //console.log(response);
                     resolve(response);
                 })
                 .catch((err) => reject(err));
