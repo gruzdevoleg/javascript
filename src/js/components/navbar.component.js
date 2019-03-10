@@ -9,9 +9,11 @@ export class NavbarComponent {
         this._userId = this._authService.userId;
         this._activeRoute = new ActiveRoute();
     }
+
     async beforeRender() {
         
     }
+
     render() {
         if (!this._authService.token) return ''; 
 
@@ -19,7 +21,7 @@ export class NavbarComponent {
         <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand">App</a>
             <ul class="navbar-nav d-flex flex-row">
-                <li class="nav-item" >
+                <li class="nav-item" style='padding-right: 10px;'>
                     <a class="nav-link" 
                     href="/#/users/${this._userId}" 
                     >My profile</a>
@@ -34,6 +36,7 @@ export class NavbarComponent {
         </nav>
         `
     }
+    
     afterRender() {
         if (!this._authService.token) return; 
         
