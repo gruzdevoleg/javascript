@@ -24,6 +24,11 @@ export class NavbarComponent {
                     href="/#/users/${this._userId}" 
                     >My profile</a>
                 </li>
+                 <li class="nav-item" >
+                    <a class="nav-link" 
+                    href="/#/payments" 
+                    >Payment</a>
+                </li>
             </ul>
             <button class="btn btn-primary logout-bth">Logout</button>
         </nav>
