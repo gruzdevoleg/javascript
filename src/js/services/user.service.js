@@ -15,4 +15,19 @@ export class UserService {
                 .catch((err) => reject(err));
         });
     }
+
+    getUserImages(userId) {
+        const http = new Http();
+
+        return new Promise((resolve, reject) => {
+            http.get(`${ENV.apiUrl}/public/users/my-images/${userId}`)
+                .then((response) => {
+                    console.log(response);
+                    resolve(response);
+                })
+                .catch((err) => reject(err));
+        });
+    }
+
+
 }

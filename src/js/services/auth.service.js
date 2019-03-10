@@ -5,8 +5,13 @@ export class AuthService {
     get token() {
         return localStorage.getItem('sn_user_token');
     }
+
     get userId() {
         return localStorage.getItem('sn_user_id');
+    }
+
+    get isSubscribed() {
+        return true;
     }
 
     login(email, password) {

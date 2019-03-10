@@ -1,3 +1,4 @@
+// components
 import { LoginComponent } from './components/login.component';
 import { HomeComponent } from './components/home.component';
 import { NotFoundComponent } from './components/notfound.component';
@@ -6,45 +7,59 @@ import { UserComponent } from './components/user.component';
 import { NewsComponent } from './components/news.component';
 import { WinnersComponent } from './components/winners.component'; 
 import { NavbarComponent } from './components/navbar.component';
+import { PaymentComponent } from './components/payment.component';
+//services
 import { ActiveRoute } from './core/active.route.service';
-import { AuthGuard } from './guard/auth.guard';
-
+import { AuthGuard } from './guards/auth.guard';
+import { PaymentGuard } from './guards/payment.guard';
 // const routes = {
 //     '/': new HomeComponent(),
 //     '/login': new LoginComponent(),
 //     '/users/:id': new UserComponent(),
 //     '**': new NotFoundComponent()
 // };
-
+const activeRoute = new ActiveRoute();
+const authGuard = new AuthGuard();
+const paymentGuard = new PaymentGuard();
 const routes = {
     '/': {
         component: new LoginComponent(),
         //guard: new AuthGuard(),
     },
+
     '/signup': {
         component: new SignupComponent(),
     },
+
     '/login': {
         component:  new LoginComponent()
     },
+
     '/users/:id': {
         component: new UserComponent(),
-        guard: new AuthGuard(),
+        guard: [authGuard]
     },
+
     '/news': {
         component: new NewsComponent(),
-        guard: new AuthGuard(),
+        guard: [authGuard],
     },
+
     '/winners': {
         component: new WinnersComponent(),
         //guard: new AuthGuard(),
     },
+
+    '/payments': {
+        component: new PaymentComponent(),
+        guard: [authGuard, paymentGuard]
+    },
+
     '**': {
         component: new NotFoundComponent()
     }
 };
 
-const activeRoute = new ActiveRoute();
 
 const router = async () => {
     // Get content container and header container
@@ -55,9 +70,15 @@ const router = async () => {
     const url = (request.resourse ? '/' + request.resourse : '/') + (request.id ? '/:id' : '');
     // Get component by route
     const component = routes[url] ? routes[url]['component'] : routes['**']['component'];
-    const guard = routes[url] ? routes[url]['guard'] : null;
+    const guards = routes[url] ? routes[url]['guard'] : null;
     // Check guard
-    if (guard && !guard.check()) return;
+    if (guards) {
+        const guardState = guards.every(function(item) {
+            return item.canActivate();
+        });
+       console.log(guardState);
+        if (!guardState) return;
+    }
 
     if (header) {
         const navbarComponent = new NavbarComponent();
@@ -72,6 +93,3 @@ const router = async () => {
 
 window.addEventListener('load', router);
 window.addEventListener('hashchange', router);
-
-
-
